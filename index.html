@@ -6,6 +6,35 @@
     <title>lista de tarefas 2</title>
 
     <style>
+        .cores{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1%;
+            
+        }
+
+        .cor1 {
+            border: 1px solid black;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        .botao {
+            background: green;
+            width: auto;
+            border-radius: 99px;
+
+        }
+        .botoes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #cccccc;
+            width: 100%;
+        }
+
 
     </style>
 </head>
@@ -14,21 +43,50 @@
 <body>
 
     <header>
-        <h1>comandos novos apenas para novo teste</h1>
+        <h1>Lista de cores</h1>
     </header>
 
     <main>
-        <nav>
-            <button>botao 1</button>
-            <button>botao 2</button>
-            <button>botao 3</button>
-            <button>botao 4</button>
-            <button>botao 5</button>
+        <nav class="cores">
+            <div class="cor1">
+                <h2>cor 1</h2>
+                <button class="botao">Adicionar</button>
+            </div>
+            <div class="cor1">
+                <h2>cor 2</h2>
+                <button class="botao">Adicionar</button>
+            </div>
+            <div class="cor1">
+                <h2>cor 3</h2>
+                <button class="botao">Adicionar</button>
+            </div>
+            <div class="cor1">
+                <h2>cor 4</h2>
+                <button class="botao">Adicionar</button>
+            </div>
+            <div class="cor1">
+                <h2>cor 5</h2>
+                <button class="botao">Adicionar</button>
+            </div>
+            <div class="cor1">
+                <h2>cor 6</h2>
+                <button class="botao">Adicionar</button>
+            </div class="cor1">
         </nav>
     </main>
     
     <footer>
+        <div class="botoes">
+            <h1>Gostou dessa cor?</h1>
+            <button class="botaoSim">Sim</button>
+            <button class="botaoNao">Não</button>
+        </div>
 
     </footer>
+
+
+    <script>
+        
+    </script>
 </body>
 </html>
