@@ -6,34 +6,127 @@
     <title>lista de tarefas 2</title>
 
     <style>
-        .cores{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1%;
-            
-        }
+       * {
+  box-sizing: border-box;
+}
 
-        .cor1 {
-            border: 1px solid black;
-            margin: auto;
-            border-radius: 10px;
-        }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eeeeee;
+}
 
-        .botao {
-            background: green;
-            width: auto;
-            border-radius: 99px;
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
 
-        }
-        .botoes {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #cccccc;
-            width: 100%;
-        }
+header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  width: 90%;
+  margin: auto auto;
+}
+
+input {
+  height: 120px;
+  font-size: 2rem;
+  width: 80%;
+  padding-left: 10%;
+}
+
+button.add {
+  width: 20%;
+  cursor: pointer;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border: none;
+  height: 120px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+main {
+  display: flex;
+  flex-flow: row wrap;
+  width: 90%;
+  margin: auto auto;
+  padding-top: 40px;
+}
+
+.item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0 0 20px #ccc;
+  margin-bottom: 2%;
+  cursor: pointer;
+}
+
+.item.clicado {
+  background: #d4f6d9;
+}
+
+.item.clicado .item-nome {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.item-icone {
+  flex: 20%;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.item-nome {
+  flex: 55%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.item-botao {
+  flex: 25%;
+}
+
+.delete {
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  height: 80px;
+  width: 100%;
+  cursor: pointer;
+}
+
+
+footer {
+  display: flex;
+  flex-flow: row-wrap;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  background: black;
+  height: 40px;
+  width: 100%;
+}
+
+footer a {
+  color: white;
+}
+
+footer i {
+  color: red;
+  font-size: 22px;
+}
+
 
 
     </style>
@@ -41,51 +134,87 @@
 
 
 <body>
+    <h1>Lista de Tarefas</h1>
 
     <header>
-        <h1>Lista de cores</h1>
+      <input id="inputTarefa" type="text" placeholder="Digite Sua Tarefa">
+      <button onclick="addTarefa()" id="btn-add" class="add">Adicionar</button>
     </header>
-
-    <main>
-        <nav class="cores">
-            <div class="cor1">
-                <h2>cor 1</h2>
-                <button class="botao">Adicionar</button>
-            </div>
-            <div class="cor1">
-                <h2>cor 2</h2>
-                <button class="botao">Adicionar</button>
-            </div>
-            <div class="cor1">
-                <h2>cor 3</h2>
-                <button class="botao">Adicionar</button>
-            </div>
-            <div class="cor1">
-                <h2>cor 4</h2>
-                <button class="botao">Adicionar</button>
-            </div>
-            <div class="cor1">
-                <h2>cor 5</h2>
-                <button class="botao">Adicionar</button>
-            </div>
-            <div class="cor1">
-                <h2>cor 6</h2>
-                <button class="botao">Adicionar</button>
-            </div class="cor1">
-        </nav>
+    
+    <main id="areaLista">
+        
+    
     </main>
     
-    <footer>
-        <div class="botoes">
-            <h1>Gostou dessa cor?</h1>
-            <button class="botaoSim">Sim</button>
-            <button class="botaoNao">Não</button>
-        </div>
-
-    </footer>
 
 
     <script>
+        let contador = 0;
+        let input = document.getElementById("inputTarefa");
+        let btnAdd = document.getElementById("btn-add");
+        let main = document.getElementById("areaLista");
+
+        function addTarefa() {
+        //PEGAR O VALOR DIGITADO NO INPUT
+        let valorInput = input.value;
+
+        //SE NÃO FOR VAZIO, NEM NULO, NEM INDEFINIDO
+        if (valorInput !== "" && valorInput !== null && valorInput !== undefined) {
+            ++contador;
+
+            let novoItem = `<div id="${contador}" class="item">
+            <div onclick="marcarTarefa(${contador})" class="item-nome">
+                ${valorInput}
+            </div>
+            <div class="item-botao">
+                <button onclick="deletar(${contador})" class="delete"> Deletar</button>
+            </div>
+        </div>`;
+
+            //ADICIONAR NOVO ITEM NO MAIN
+            main.innerHTML += novoItem;
+
+            //ZERAR OS CAMPINHOS
+            input.value = "";
+            input.focus();
+        }
+}
+
+function deletar(id) {
+  var tarefa = document.getElementById(id);
+  tarefa.remove();
+}
+
+function marcarTarefa(id) {
+  var item = document.getElementById(id);
+  var classe = item.getAttribute("class");
+  console.log(classe);
+
+  if (classe == "item") {
+    item.classList.add("clicado");
+
+    var icone = document.getElementById("icone_" + id);
+    icone.classList.remove("mdi-circle-outline");
+    icone.classList.add("mdi-check-circle");
+
+    item.parentNode.appendChild(item);
+  } else {
+    item.classList.remove("clicado");
+
+    var icone = document.getElementById("icone_" + id);
+    icone.classList.remove("mdi-check-circle");
+    icone.classList.add("mdi-circle-outline");
+  }
+}
+
+input.addEventListener("keyup", function (event) {
+  //SE TECLOU ENTER (13)
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    btnAdd.click();
+  }
+});
+
         
     </script>
 </body>
